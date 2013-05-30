@@ -254,11 +254,15 @@ keypress(XKeyEvent *ev) {
 		case XK_i: ksym = XK_Tab;       break;
 		case XK_j: /* fallthrough */
 		case XK_J: ksym = XK_Return;    break;
-		case XK_m: /* fallthrough */
-		case XK_M: ksym = XK_Return;    break;
 		case XK_n: ksym = XK_Down;      break;
 		case XK_p: ksym = XK_Up;        break;
 
+		case XK_m: /* fallthrough */
+		case XK_M:
+			puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+			exit(EXIT_SUCCESS);
+			sel->out = True;
+			break;
 		case XK_k: /* delete right */
 			text[cursor] = '\0';
 			match();
